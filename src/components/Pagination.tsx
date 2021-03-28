@@ -5,6 +5,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 
 interface PaginationProps {
   initialPage?: number
+  curPage?: number | null
   totalPage?: number
   onChange?: (pageIndex: number) => void
 }
@@ -12,6 +13,7 @@ interface PaginationProps {
 const Pagination = ({
   initialPage = 1,
   totalPage = 10,
+  curPage = undefined,
   onChange = undefined,
 }: PaginationProps) => {
   const [page, setPage] = useState(initialPage)
@@ -25,7 +27,7 @@ const Pagination = ({
   // 当前索引是否active
   function isActive(i: number) {
     return {
-      active: i + 1 === page,
+      active: i + 1 === (curPage ? +curPage : page),
     }
   }
 

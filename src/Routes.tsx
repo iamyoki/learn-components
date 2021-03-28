@@ -1,5 +1,6 @@
-import { RouteComponentProps, Router } from '@reach/router'
+import { globalHistory, RouteComponentProps, Router } from '@reach/router'
 import { ReactNode } from 'react'
+import { QueryParamProvider } from 'use-query-params'
 import HomePage from './pages/HomePage'
 import PaginationPage from './pages/PaginationPage'
 
@@ -25,9 +26,11 @@ export const pages: Page[] = [
 const Routes = () => {
   return (
     <Router>
-      {pages.map((page) => (
-        <page.component key={page.path} {...page} />
-      ))}
+      <QueryParamProvider {...{ path: '/' }} reachHistory={globalHistory}>
+        {pages.map((page) => (
+          <page.component key={page.path} {...page} />
+        ))}
+      </QueryParamProvider>
     </Router>
   )
 }
