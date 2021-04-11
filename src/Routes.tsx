@@ -1,6 +1,7 @@
 import { globalHistory, RouteComponentProps, Router } from '@reach/router'
 import { ReactNode } from 'react'
 import { QueryParamProvider } from 'use-query-params'
+import ButtonPage from './pages/ButtonPage'
 import HomePage from './pages/HomePage'
 import PaginationPage from './pages/PaginationPage'
 import SwitchPage from './pages/SwitchPage'
@@ -32,6 +33,11 @@ export const pages: Page[] = [
     path: '/toast',
     component: ToastPage,
     title: 'Toast Page',
+  },
+  {
+    path: '/button',
+    component: ButtonPage,
+    title: 'Button Page',
   },
 ]
 
