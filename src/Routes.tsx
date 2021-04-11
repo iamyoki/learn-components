@@ -3,6 +3,8 @@ import { ReactNode } from 'react'
 import { QueryParamProvider } from 'use-query-params'
 import HomePage from './pages/HomePage'
 import PaginationPage from './pages/PaginationPage'
+import SwitchPage from './pages/SwitchPage'
+import ToastPage from './pages/ToastPage'
 
 interface Page {
   path: string
@@ -20,6 +22,16 @@ export const pages: Page[] = [
     path: '/pagination',
     component: PaginationPage,
     title: 'Pagination Page',
+  },
+  {
+    path: '/swith',
+    component: SwitchPage,
+    title: 'Switch Page',
+  },
+  {
+    path: '/toast',
+    component: ToastPage,
+    title: 'Toast Page',
   },
 ]
 

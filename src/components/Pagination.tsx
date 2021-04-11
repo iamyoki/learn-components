@@ -1,7 +1,8 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import useDidMountEffect from '../hooks/useDidMountEffect'
 
 interface PaginationProps {
   initialPage?: number
@@ -18,10 +19,21 @@ const Pagination = ({
 }: PaginationProps) => {
   const [page, setPage] = useState(initialPage)
 
+  useDidMountEffect(() => {
+    if (onChange) onChange(page)
+  }, [page])
+
   // 点击页面按钮
-  function handleClickPage(index: number) {
-    setPage(index)
-    if (onChange) onChange(index)
+  function handleClickPage(index: number, isArrow?: boolean) {
+    let curIndex
+    if (isArrow) {
+      curIndex = page + index
+      setPage(curIndex)
+    } else {
+      curIndex = index
+      setPage(curIndex)
+    }
+    // if (onChange) onChange(curIndex)
   }
 
   // 当前索引是否active
@@ -38,7 +50,10 @@ const Pagination = ({
         display: flex;
       `}
     >
-      <PaginationBtn disabled={page <= 1}>
+      <PaginationBtn
+        disabled={page <= 1}
+        onClick={() => handleClickPage(-1, true)}
+      >
         <MdChevronLeft />
       </PaginationBtn>
       {[...Array(totalPage)].map((item, i) => (
@@ -51,7 +66,10 @@ const Pagination = ({
           {i + 1}
         </PaginationBtn>
       ))}
-      <PaginationBtn disabled={page >= totalPage}>
+      <PaginationBtn
+        disabled={page >= totalPage}
+        onClick={() => handleClickPage(1, true)}
+      >
         <MdChevronRight />
       </PaginationBtn>
     </div>
